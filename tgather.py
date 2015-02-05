@@ -8,6 +8,7 @@ import tweepy
 import pymongo
 import sys
 import json
+import codecs
 
 class CustomStreamListener(tweepy.StreamListener):
 
@@ -42,8 +43,8 @@ class CustomStreamListener(tweepy.StreamListener):
 
 def get_words(fname):
 
-    #with codecs.open(fname,'r','ascii') as fi:
-    with open(fname) as fi:
+    with codecs.open(fname,'r','utf8') as fi:
+    #with open(fname) as fi:
 
         words = [ line.strip().lower() \
                     for line in fi.readlines() ]
@@ -62,8 +63,8 @@ def main():
     access_key = "1490017938-cwb0b9cGbV0q2EnHN7WHGbRq011Qa4U3AQkvygb"
     access_secret = "GFlS1IFhq9yVe0SnycNxaSUHcn0uoFpm44CTVmBweTqL9"
 
-    norsk = get_words('/tgather/words/norsk.txt')
-    target = get_words('/tgather/words/target.txt')
+    norsk = get_words('./words/norsk.txt')
+    target = get_words('./words/target.txt')
     words = norsk+target
     words = sorted(words)
 
