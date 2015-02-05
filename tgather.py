@@ -63,8 +63,13 @@ def main():
     access_key = "1490017938-cwb0b9cGbV0q2EnHN7WHGbRq011Qa4U3AQkvygb"
     access_secret = "GFlS1IFhq9yVe0SnycNxaSUHcn0uoFpm44CTVmBweTqL9"
 
-    norsk = get_words('./words/norsk.txt')
-    target = get_words('./words/target.txt')
+    try:
+        baseDir=sys.argv[1]
+    except:
+        baseDir="/tgather"
+    norsk = get_words(baseDir+'/words/norsk.txt')
+    target = get_words(baseDir+'/words/target.txt')
+    print(norsk)
     words = norsk+target
     words = sorted(words)
 
