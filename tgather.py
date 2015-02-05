@@ -48,7 +48,7 @@ def get_words(fname):
 
         words = [ line.strip().lower() \
                     for line in fi.readlines() ]
-
+    print(words)
     return words
 
 def main():
@@ -92,14 +92,7 @@ def main():
         except Exception as e:
             print(e)
             pass
-    # auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    # auth.set_access_token(access_key, access_secret)
-    #
-    # api = tweepy.API(auth)
-    #
-    # public_tweets = api.home_timeline()
-    # for tweet in public_tweets:
-    #     print( tweet.text)
+
 
 
 
