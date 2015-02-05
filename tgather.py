@@ -56,7 +56,6 @@ def main():
     #uspw   = 'intelcom'
     #t      = 'oslo'
     #us     = 'jeg_kan_edb'
-    #pw     = 'intelcom'
 
     consumer_key="xOZiXiNU6VnOBnTq62cX0EeNv"
     consumer_secret="DxpLViOkEOjVtrXDluoFIMuwzsmbZ7aQ24hGhXWGmjPPzQdG6r"
