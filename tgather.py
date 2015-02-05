@@ -8,7 +8,7 @@ import tweepy
 import pymongo
 import sys
 import json
-import codecs
+import pickle as pkl
 
 class CustomStreamListener(tweepy.StreamListener):
 
@@ -41,15 +41,7 @@ class CustomStreamListener(tweepy.StreamListener):
         print >> sys.stderr, 'Timeout...'
         return True # Don't kill the stream
 
-def get_words(fname):
 
-    with codecs.open(fname,'r','utf8') as fi:
-    #with open(fname) as fi:
-
-        words = [ line.strip().lower() \
-                    for line in fi.readlines() ]
-    print(words)
-    return words
 
 def main():
 
@@ -66,8 +58,10 @@ def main():
         baseDir=sys.argv[1]
     except:
         baseDir="/tgather"
-    norsk = get_words(baseDir+'/words/norsk.txt')
-    target = get_words(baseDir+'/words/target.txt')
+    with open(baseDir+'/words/norsk.pkl',mode='rb') as ff:
+        norsk=pkl.load(ff)
+    with open(baseDir+'/words/target.pkl',mode='rb') as ff:
+        target=pkl.load(ff)
     print(norsk)
     words = norsk+target
     words = sorted(words)
