@@ -12,13 +12,13 @@ import pickle as pkl
 
 class CustomStreamListener(tweepy.StreamListener):
 
-    def __init__(self):
+    def __init__(self,host):
         tweepy.StreamListener.__init__(self)
         self.scount=-1
-        self.__init_db_con()
+        self.__init_db_con(host)
 
-    def __init_db_con(self):
-        self.client = pymongo.MongoClient('localhost', 27017)
+    def __init_db_con(self,host):
+        self.client = pymongo.MongoClient(host, 27017)
         print(self.client.database_names())
         self.db = self.client.tgather
         self.posts = self.db.posts
@@ -54,10 +54,12 @@ def main():
     access_key = "1490017938-cwb0b9cGbV0q2EnHN7WHGbRq011Qa4U3AQkvygb"
     access_secret = "GFlS1IFhq9yVe0SnycNxaSUHcn0uoFpm44CTVmBweTqL9"
 
-    try:
-        baseDir=sys.argv[1]
-    except:
+    nArgs=len(sys.argv)
+    hh=sys.argv[1]
+    if nArgs==2:
         baseDir="/tgather"
+    else:
+        baseDir=sys.argv[2]
     with open(baseDir+'/words/norsk.pkl',mode='rb') as ff:
         norsk=pkl.load(ff)
     with open(baseDir+'/words/target.pkl',mode='rb') as ff:
@@ -65,6 +67,7 @@ def main():
     print(norsk)
     words = norsk+target
     words = sorted(words)
+
 
     #words = get_words('./words/test.txt')
 
@@ -76,7 +79,7 @@ def main():
     auth.set_access_token(access_key, access_secret)
     api = tweepy.API(auth)
 
-    sapi = tweepy.streaming.Stream(auth, CustomStreamListener())
+    sapi = tweepy.streaming.Stream(auth, CustomStreamListener(hh))
 
     while True:
 
